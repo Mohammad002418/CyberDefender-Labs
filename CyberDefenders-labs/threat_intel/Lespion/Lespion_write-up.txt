@@ -1,0 +1,90 @@
+# Lab Write-up: Lespion
+
+# Platform
+CyberDefenders
+
+## Category
+Threat Intel.
+
+## Scenario
+You have been tasked by a client whose network was compromised and brought offline to investigate the incident and determine the attacker's identity.
+
+Incident responders and digital forensic investigators are currently on the scene and have conducted a preliminary investigation.
+Their findings show that the attack originated from a single user account, probably, an insider.
+Investigate the incident, find the insider, and uncover the attack actions.
+
+## Tools Used
+-Google Maps
+-Google Image search
+-Sherlock
+
+
+## Analysis Steps
+Investigate the GitHub repository:
+
+Search the repository on GitHub.
+
+1- Look for:
+
+exposed credentials
+
+API keys
+
+usernames
+
+email addresses
+
+Often the attacker accidentally leaves sensitive data in the code or commit history.
+
+Things to check:
+
+README files
+
+commit history
+
+configuration files
+
+2️-Identify the attacker’s username
+
+The repository usually contains a username or alias.
+
+Then investigate this username across the internet.
+
+
+
+## Questions & Answers
+Q1:File -> Github.txt: What API key did the insider add to his GitHub repositories?
+Answer:aJFRaLHjMXvYZgLPwiJkroYLGRkNBW
+
+Q2:File -> Github.txt: What plaintext password did the insider add to his GitHub repositories?
+Answer:PicassoBaguette99
+
+Q3:File -> Github.txt: What cryptocurrency mining tool did the insider use?
+Answer:XMRig
+
+Q4:On which gaming website did the insider have an account?
+Answer:Steam
+
+Q5:What is the link to the insider Instagram profile?
+Answer:https://www.instagram.com/emarseille99/
+
+Q6:Which country did the insider visit on her holiday?
+Answer:Singapore
+
+Q7:Which city does the insider family live in?
+Answer:Dubai
+
+Q8:File -> office.jpg: You have been provided with a picture of the building in which the company has an office.
+Which city is the company located in?
+Answer:Birmingham
+
+Q9:File -> Webcam.png: With the intel, you have provided, our ground surveillance unit is
+now overlooking the person of interest suspected address. They saw them leaving their apartment and followed them to the airport.
+Their plane took off and landed in another country.
+Our intelligence team spotted the target with this IP camera. Which state is this camera in?
+Answer:Indiana
+
+
+
+## Lessons Learned
+This lab improved my search skills and investigation skills.
