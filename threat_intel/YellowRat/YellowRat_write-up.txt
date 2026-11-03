@@ -1,0 +1,74 @@
+# Lab Write-up: YellowRat
+
+## Platform
+CyberDefenders
+
+## Category
+Threat Intel
+## Scenario:
+Analyze malware artifacts using threat intelligence platforms like VirusTotal to identify
+ IOCs, C2 servers, and understand adversary tactics.
+
+
+## Tools Used
+- VirusTotal.
+- Red Canary.
+
+
+## Analysis Steps
+ 1-Collect Artifacts
+
+Gather malware files, hashes, or suspicious samples provided in the lab.
+
+2-Upload to VirusTotal
+
+3-Check file hash, see detections, and identify any malicious indicators (IOCs).
+
+4-Check Threat Intelligence.
+
+5-Use Red Canary or other TI platforms to see if the malware or related IOCs are known.
+
+6-Identify C2 Servers.
+
+7-Look at the domains, IPs, and URLs the malware contacts in reports.
+
+8-Map Adversary Tactics
+
+9-Match observed behavior (execution, persistence, communication) to MITRE ATT&CK techniques.
+
+10-Document Findings.
+
+Record IOCs, C2 info, and tactics for threat hunting or SOC referenc
+
+## Questions & Answers
+Q1:Understanding the adversary helps defend against attacks. 
+What is the name of the malware family that causes abnormal network traffic?
+Answer:Yellow Cockatoo RAT
+
+Q2:As part of our incident response, knowing common filenames the malware uses can help
+scan other workstations for potential infection. What is the common filename associated with
+the malware discovered on our workstations?
+Answer:111bc461-1ca8-43c6-97ed-911e0e69fdf8.dll
+
+Q3:Determining the compilation timestamp of malware can reveal insights into its development and 
+deployment timeline. What is the compilation timestamp of the malware that infected our network?
+Answer:2020-09-24 18:26
+
+Q4:Understanding when the broader cybersecurity community first identified the malware could help determine
+how long the malware might have been in the environment before detection. 
+When was the malware first submitted to VirusTotal?
+Answer:2020-10-15 02:47
+
+Q5:To completely eradicate the threat from Industries' systems, we need to identify all components dropped by
+ the malware. What is the name of the .dat file that the malware dropped in the AppData folder?
+Answer:solarmarker.dat
+
+Q6:It is crucial to identify the C2 servers with which the malware communicates to block its communication and 
+ prevent further data exfiltration. What is the C2 server that the malware is communicating with?
+Answer:https://gogohid.com
+
+
+
+## Lessons Learned
+This Lab teaches how to use threat intelligence platforms to identify IOCs, 
+C2 servers, and adversary tactics, reinforcing skills in malware analysis and SOC threat detection.

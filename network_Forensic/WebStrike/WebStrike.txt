@@ -1,0 +1,65 @@
+Lab write-up:WebStrike
+
+#Category:
+Network Forensics.
+
+#Tactics:
+Initial Access , Execution , Persistence , Command and Control , Exfiltration.
+
+#Tool:
+Wireshark.
+
+Scenario:
+A suspicious file was identified on a company web server, raising alarms within the intranet. The Development team
+flagged the anomaly, suspecting potential malicious activity. To address the issue, the network team captured 
+critical network traffic and prepared a PCAP file for review.Your task is to analyze the provided PCAP file to
+uncover how the file appeared and determine the extent of any unauthorized activity.
+
+
+## Analysis Steps:
+  
+
+1- Open the PCAP in Wireshark – Start by loading the captured network traffic.
+
+2- Filter HTTP traffic – Use http or tcp.port == 80 to locate web requests and responses.
+
+3- Identify suspicious web shells – Look for unusual POST requests or encoded payloads in HTTP traffic.
+
+4- Trace reverse shell connections – Filter by non-standard ports or tcp.stream to find outgoing connections from the server.
+
+5- Check for data exfiltration – Look for large outbound transfers or repeated uploads to external IPs.
+
+6- Document IOCs – Record IPs, domains, filenames, and commands observed during the compromise.
+
+7- Summarize attack flow – Map the sequence: Initial Access → Execution → Persistence → C2 → Exfiltration.
+
+
+## Questions & Answers:
+Q1:Identifying the geographical origin of the attack facilitates the implementation of geo-blocking
+ measures and the analysis of threat intelligence. From which city did the attack originate?
+
+{ 💡Note: The lab machines do not have internet access. To look up the IP address and complete this step,
+use an IP geolocation service on your local computer outside the lab environment. }
+Answer:Tianjin
+
+Q2:Knowing the attacker's User-Agent assists in creating robust filtering rules. What's the attacker's Full User-Agent?
+Answer: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+
+Q3:We need to determine if any vulnerabilities were exploited. What is the name of the malicious web shell that was successfully uploaded?
+Answer:image.jpg.php
+
+Q4:Identifying the directory where uploaded files are stored is crucial for locating the vulnerable page
+and removing any malicious files. Which directory is used by the website to store the uploaded files?
+Answer:/reviews/uploads/
+
+Q5:Which port, opened on the attacker's machine, was targeted by the malicious web shell for establishing unauthorized outbound communication?
+Answer:8080
+
+Q6:Recognizing the significance of compromised data helps prioritize incident response actions. Which file was the attacker attempting to exfiltrate?
+Answer:passwd
+
+
+#Lessons Learned:
+
+Monitoring network traffic can reveal web shell deployments, reverse shells, and data theft to quickly respond to server compromises.
+
